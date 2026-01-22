@@ -1,6 +1,0 @@
-pyproject.toml
-speed_comparison.py
-speed_comparison.egg-info/PKG-INFO
-speed_comparison.egg-info/SOURCES.txt
-speed_comparison.egg-info/dependency_links.txt
-speed_comparison.egg-info/top_level.txt
