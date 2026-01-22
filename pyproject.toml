@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "np-nurbs"
+version = "0.1.0"
+authors = [
+    {name = "Matthew G Lauer"}
+]
+dependencies = [
+    "cupy-cuda12x",  # Optimized for CUDA 12.x and 13.x
+    "numpy",
+    "scipy"
+]
+
