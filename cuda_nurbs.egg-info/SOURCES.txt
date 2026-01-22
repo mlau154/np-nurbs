@@ -1,0 +1,7 @@
+pyproject.toml
+speed_comparison.py
+cuda_nurbs.egg-info/PKG-INFO
+cuda_nurbs.egg-info/SOURCES.txt
+cuda_nurbs.egg-info/dependency_links.txt
+cuda_nurbs.egg-info/requires.txt
+cuda_nurbs.egg-info/top_level.txt
