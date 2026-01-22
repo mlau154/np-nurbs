@@ -1,8 +1,0 @@
-pyproject.toml
-np_nurbs/__init__.py
-np_nurbs/bezier.py
-np_nurbs.egg-info/PKG-INFO
-np_nurbs.egg-info/SOURCES.txt
-np_nurbs.egg-info/dependency_links.txt
-np_nurbs.egg-info/requires.txt
-np_nurbs.egg-info/top_level.txt
