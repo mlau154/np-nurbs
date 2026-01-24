@@ -6,6 +6,7 @@ from np_nurbs import coefficient_matrices
 __all__ = [
     "bezier_curve_eval_grid",
     "bezier_curve_dcdt_grid",
+    "bezier_curve_d2cdt2_grid",
     "bezier_surf_eval_grid",
 ]
 
@@ -84,10 +85,53 @@ def bezier_curve_dcdt_grid(
     
     m = coefficient_matrices[degree - 1]
 
-    p_diff = np.diff(p, axis=0)
+    p_diff = np.diff(p, n=1, axis=0)
     
     a = np.dot(t_mat.T, m)
     b = degree * np.dot(a, p_diff)
+    
+    return b
+
+
+def bezier_curve_d2cdt2_grid(
+        p: np.ndarray[tuple[int, int], np.dtype[float]],
+        nt: int
+        ) -> np.ndarray[tuple[int, int], np.dtype[float]]:
+    """
+    Evaluates the second derivative of a Bézier curve with
+    respect to its parameter :math:`t` on an evenly
+    spaced parameter vector (``linspace(0, 1, nt)``)
+    using a fully vectorized formulation.
+
+    Parameters
+    ----------
+    p: np.ndarray[tuple[int, int], np.dtype[float]]
+        Bézier control point array. This array has shape
+        :math:`(n+1) \\times d`, where :math:`n` is
+        the curve degree and :math:`d` is the number
+        of dimensions (usually 2 or 3)
+    nt: int
+        Number of evenly spaced parameters at which to
+        evaluate the second derivative
+
+    Returns
+    -------
+    np.ndarray[tuple[int, int], np.dtype[float]]
+        The evaluated Bézier curve second derivative with shape
+        :math:`n_t \\times d`, where :math:`n_t`
+        is the number of parameters
+    """
+    degree = len(p) - 1
+    t = np.linspace(0.0, 1.0, nt, dtype=float)
+    powers = (degree - 2 - np.arange(degree + 1 - 2))[:, np.newaxis]
+    t_mat = t ** powers
+    
+    m = coefficient_matrices[degree - 2]
+
+    p_diff = np.diff(p, n=2, axis=0)
+    
+    a = np.dot(t_mat.T, m)
+    b = degree * (degree - 1) * np.dot(a, p_diff)
     
     return b
 

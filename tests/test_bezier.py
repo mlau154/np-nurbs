@@ -43,6 +43,17 @@ def test_bezier_curve_dcdt_grid(
     assert np.all(np.isclose(np_curve, rust_curve))
 
 
+def test_bezier_curve_d2cdt2_grid(
+        p_curve: np.ndarray[tuple[int, int], np.dtype[float]]
+        ):
+    np_curve = np_nurbs.bezier_curve_d2cdt2_grid(
+            p_curve, 150
+            )
+    rust_curve = np.array(rust_nurbs.bezier_curve_d2cdt2_grid(
+            p_curve, 150
+            ))
+    assert np.all(np.isclose(np_curve, rust_curve))
+
 
 def test_bezier_surf_eval_grid(
         p_surf: np.ndarray[tuple[int, int, int], np.dtype[float]]

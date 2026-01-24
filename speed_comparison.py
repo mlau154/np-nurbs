@@ -63,6 +63,34 @@ def compare_bezier_curve_dcdt_grid_timings():
     print(f"Standard deviation: {std_dev_time_numpy:.6f} s (np_nurbs) | {std_dev_time_rnurbs:.6f} s (rust_nurbs)")
 
 
+def compare_bezier_curve_d2cdt2_grid_timings():
+    p_rand = np.random.uniform(low=0.0, high=1.0, size=(1000, 5, 3))
+
+    cupy_timings, numpy_timings, rnurbs_timings = [], [], []
+    m_gpu, m = None, None
+    for p in p_rand:
+        start_time = time.perf_counter()
+        bezier_curve_d2cdt2_grid(p, 150)
+        end_time = time.perf_counter()
+        elapsed_time = end_time - start_time
+        numpy_timings.append(elapsed_time)
+    for p in p_rand:
+        start_time = time.perf_counter()
+        rust_nurbs.bezier_curve_d2cdt2_grid(p, 150)
+        end_time = time.perf_counter()
+        elapsed_time = end_time - start_time
+        rnurbs_timings.append(elapsed_time)
+
+    mean_time_numpy = mean(numpy_timings[1:])
+    std_dev_time_numpy = stdev(numpy_timings[1:])
+    mean_time_rnurbs = mean(rnurbs_timings[1:])
+    std_dev_time_rnurbs = stdev(rnurbs_timings[1:])
+
+    print(f"Bézier curve second derivative evaluation...")
+    print(f"Mean execution time: {mean_time_numpy:.6f} s (np_nurbs) | {mean_time_rnurbs:.6f} s (rust_nurbs) | Ratio -- {mean_time_rnurbs / mean_time_numpy:.1f}")
+    print(f"Standard deviation: {std_dev_time_numpy:.6f} s (np_nurbs) | {std_dev_time_rnurbs:.6f} s (rust_nurbs)")
+
+
 def compare_bezier_surf_eval_timings():
     p_rand = np.random.uniform(low=-3.0, high=3.0, size=(100, 5, 6, 3))
     numpy_timings, rnurbs_timings = [], []
@@ -148,6 +176,7 @@ def compare_rational_bezier_surf_eval_timings():
 def main():
     compare_bezier_curve_eval_timings()
     compare_bezier_curve_dcdt_grid_timings()
+    compare_bezier_curve_d2cdt2_grid_timings()
     compare_bezier_surf_eval_timings()
     compare_rational_bezier_curve_eval_timings()
     compare_rational_bezier_surf_eval_timings()
