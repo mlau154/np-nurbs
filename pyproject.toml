@@ -9,8 +9,18 @@ authors = [
     {name = "Matthew G Lauer"}
 ]
 dependencies = [
-    "cupy-cuda12x",  # Optimized for CUDA 12.x and 13.x
     "numpy",
-    "scipy"
+    "scipy",
+]
+
+[project.optional-dependencies]
+dev = [
+    "rust_nurbs",
+    "pytest",
+]
+
+[tool.setuptools]
+packages = [
+    "np_nurbs"
 ]
 

@@ -40,3 +40,9 @@ end_time = time.perf_counter()
 elapsed_time = end_time - start_time
 print(f"CPU coefficient matrix initialization time: {elapsed_time:.6f} seconds")
 
+
+# Delayed import of all functions so that each function can import the
+# just instantiated hashmap of coefficient matrices
+from .bezier import *
+from .rational_bezier import *
+
