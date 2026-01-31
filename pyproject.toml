@@ -15,8 +15,11 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "rust_nurbs",
+    "pydata-sphinx-theme",
     "pytest",
+    "rust_nurbs",
+    "sphinx",
+    "sphinx-design",
 ]
 
 [tool.setuptools]
