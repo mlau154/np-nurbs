@@ -1,3 +1,4 @@
+from numpy.typing import NDArray
 import numpy as np
 
 from np_nurbs import coefficient_matrices
@@ -13,10 +14,10 @@ __all__ = [
 
 
 def bezier_curve_anyderiv_grid(
-        p: np.ndarray[tuple[int, int], np.dtype[np.float64]],
-        nt: int,
-        deriv_order: int,
-        ) -> np.ndarray[tuple[int, int], np.dtype[np.float64]]:
+    p: NDArray[np.float64], 
+    nt: int,
+    deriv_order: int,
+) -> NDArray[np.float64]: 
     """
     Evaluates a Bézier curve derivative of any order (including
     0, which implies a pure curve evaluation) 
@@ -25,7 +26,7 @@ def bezier_curve_anyderiv_grid(
 
     Parameters
     ----------
-    p: np.ndarray[tuple[int, int], np.dtype[np.float64]]
+    p: NDArray[np.float64]
         Bézier control point array. This array has shape
         :math:`(n+1) \\times d`, where :math:`n` is
         the curve degree and :math:`d` is the number
@@ -45,7 +46,7 @@ def bezier_curve_anyderiv_grid(
 
     Returns
     -------
-    np.ndarray[tuple[int, int], np.dtype[np.float64]]
+    NDArray[np.float64]
         The evaluated Bézier curve with shape
         :math:`n_t \\times d`, where :math:`n_t`
         is the number of parameters
@@ -77,16 +78,16 @@ def bezier_curve_anyderiv_grid(
 
 
 def bezier_curve_eval_grid(
-        p: np.ndarray[tuple[int, int], np.dtype[np.float64]], 
-        nt: int,
-        ) -> np.ndarray[tuple[int, int], np.dtype[np.float64]]:
+    p: NDArray[np.float64],
+    nt: int,
+) -> NDArray[np.float64]:
     """
     Evaluates a Bézier curve on an evenly spaced parameter vector
     (``linspace(0, 1, nt)``) using a fully vectorized formulation.
 
     Parameters
     ----------
-    p: np.ndarray[tuple[int, int], np.dtype[np.float64]]
+    p: NDArray[np.float64] 
         Bézier control point array. This array has shape
         :math:`(n+1) \\times d`, where :math:`n` is
         the curve degree and :math:`d` is the number
@@ -97,7 +98,7 @@ def bezier_curve_eval_grid(
 
     Returns
     -------
-    np.ndarray[tuple[int, int], np.dtype[np.float64]]
+    NDArray[np.float64]
         The evaluated Bézier curve with shape
         :math:`n_t \\times d`, where :math:`n_t`
         is the number of parameters
@@ -106,9 +107,9 @@ def bezier_curve_eval_grid(
 
 
 def bezier_curve_dcdt_grid(
-        p: np.ndarray[tuple[int, int], np.dtype[np.float64]],
-        nt: int
-        ) -> np.ndarray[tuple[int, int], np.dtype[np.float64]]:
+    p: NDArray[np.float64], 
+    nt: int
+) -> NDArray[np.float64]:
     """
     Evaluates the first derivative of a Bézier curve with
     respect to its parameter :math:`t` on an evenly
@@ -117,7 +118,7 @@ def bezier_curve_dcdt_grid(
 
     Parameters
     ----------
-    p: np.ndarray[tuple[int, int], np.dtype[np.float64]]
+    p: NDArray[np.float64]
         Bézier control point array. This array has shape
         :math:`(n+1) \\times d`, where :math:`n` is
         the curve degree and :math:`d` is the number
@@ -128,7 +129,7 @@ def bezier_curve_dcdt_grid(
 
     Returns
     -------
-    np.ndarray[tuple[int, int], np.dtype[np.float64]]
+    NDArray[np.float64]
         The evaluated Bézier curve first derivative with shape
         :math:`n_t \\times d`, where :math:`n_t`
         is the number of parameters
@@ -137,9 +138,9 @@ def bezier_curve_dcdt_grid(
 
 
 def bezier_curve_d2cdt2_grid(
-        p: np.ndarray[tuple[int, int], np.dtype[np.float64]],
-        nt: int
-        ) -> np.ndarray[tuple[int, int], np.dtype[np.float64]]:
+    p: NDArray[np.float64], 
+    nt: int
+) -> NDArray[np.float64]: 
     """
     Evaluates the second derivative of a Bézier curve with
     respect to its parameter :math:`t` on an evenly
@@ -148,7 +149,7 @@ def bezier_curve_d2cdt2_grid(
 
     Parameters
     ----------
-    p: np.ndarray[tuple[int, int], np.dtype[np.float64]]
+    p: NDArray[np.float64]
         Bézier control point array. This array has shape
         :math:`(n+1) \\times d`, where :math:`n` is
         the curve degree and :math:`d` is the number
@@ -159,7 +160,7 @@ def bezier_curve_d2cdt2_grid(
 
     Returns
     -------
-    np.ndarray[tuple[int, int], np.dtype[np.float64]]
+    NDArray[np.float64]
         The evaluated Bézier curve second derivative with shape
         :math:`n_t \\times d`, where :math:`n_t`
         is the number of parameters
@@ -168,10 +169,10 @@ def bezier_curve_d2cdt2_grid(
 
 
 def bezier_surf_eval_grid(
-        p: np.ndarray[tuple[int, int, int], np.dtype[np.float64]],
-        nu: int, 
-        nv: int,
-        ) -> np.ndarray[tuple[int, int, int], np.dtype[np.float64]]:
+    p: NDArray[np.float64],
+    nu: int, 
+    nv: int,
+) -> NDArray[np.float64]: 
     """
     Evaluates a Bézier surface on a uniform parameter grid
     (``linspace(0, 1, nu), linspace(0, 1, nv)``) 
@@ -179,7 +180,7 @@ def bezier_surf_eval_grid(
 
     Parameters
     ----------
-    p: np.ndarray[tuple[int, int, int], np.dtype[np.float64]]
+    p: NDArray[np.float64]
         Bézier surface control point array. This array has shape
         :math:`(n+1) \\times (m+1) \\times d`, where :math:`n` is
         the surface degree in the :math:`u`-direction,
@@ -194,7 +195,7 @@ def bezier_surf_eval_grid(
 
     Returns
     -------
-    np.ndarray[tuple[int, int, int], np.dtype[np.float64]]
+    NDArray[np.float64]
         The evaluated Bézier surface with shape
         :math:`n_u \\times n_v \\times d`, where :math:`n_u`
         is the number of parameters in the

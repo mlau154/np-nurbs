@@ -1,3 +1,4 @@
+from numpy.typing import NDArray
 import numpy as np
 
 from np_nurbs import coefficient_matrices
@@ -10,23 +11,23 @@ __all__ = [
 
 
 def rational_bezier_curve_eval_grid(
-        p: np.ndarray[tuple[int, int], np.dtype[np.float64]], 
-        w: np.ndarray[tuple[int,], np.dtype[np.float64]],
-        nt: int,
-        ) -> np.ndarray[tuple[int, int], np.dtype[np.float64]]:
+    p: NDArray[np.float64],
+    w: NDArray[np.float64],
+    nt: int,
+) -> NDArray[np.float64]:
     """
     Evaluates a rational Bézier curve on an evenly spaced parameter vector
     (``linspace(0, 1, nt)``) using a fully vectorized formulation.
 
     Parameters
     ----------
-    p: np.ndarray[tuple[int, int], np.dtype[np.float64]]
+    p: NDArray[np.float64]
         Rational Bézier curve control point array. 
         This array has shape
         :math:`(n+1) \\times d`, where :math:`n` is
         the curve degree and :math:`d` is the number
         of dimensions (usually 2 or 3)
-    w: np.ndarray[tuple[int,], np.dtype[np.float64]]
+    w: NDArray[np.float64]
         Vector of weights, corresponding one-to-one with
         the control points
     nt: int
@@ -35,7 +36,7 @@ def rational_bezier_curve_eval_grid(
 
     Returns
     -------
-    np.ndarray[tuple[int, int], np.dtype[np.float64]]
+    NDArray[np.float64]
         The evaluated rational Bézier curve with shape
         :math:`n_t \\times d`, where :math:`n_t`
         is the number of parameters
@@ -59,11 +60,11 @@ def rational_bezier_curve_eval_grid(
 
 
 def rational_bezier_surf_eval_grid(
-        p: np.ndarray[tuple[int, int, int], np.dtype[np.float64]],
-        w: np.ndarray[tuple[int, int], np.dtype[np.float64]],
+        p: NDArray[np.float64],
+        w: NDArray[np.float64],
         nu: int, 
         nv: int,
-        ) -> np.ndarray[tuple[int, int, int], np.dtype[np.float64]]:
+        ) -> NDArray[np.float64]:
     """
     Evaluates a rational Bézier surface on a uniform parameter grid
     (``linspace(0, 1, nu), linspace(0, 1, nv)``) 
@@ -71,14 +72,14 @@ def rational_bezier_surf_eval_grid(
 
     Parameters
     ----------
-    p: np.ndarray[tuple[int, int, int], np.dtype[np.float64]]
+    p: NDArray[np.float64]
         Rational Bézier surface control point array. 
         This array has shape
         :math:`(n+1) \\times (m+1) \\times d`, where :math:`n` is
         the surface degree in the :math:`u`-direction,
         :math:`m` is the surface degree in the :math:`v`-direction,
         and :math:`d` is the number of dimensions (usually 3)
-    w: np.ndarray[tuple[int, int], np.dtype[np.float64]]
+    w: NDArray[np.float64]
         Vector of weights, corresponding one-to-one with
         the control points
     nu: int
@@ -90,7 +91,7 @@ def rational_bezier_surf_eval_grid(
 
     Returns
     -------
-    np.ndarray[tuple[int, int, int], np.dtype[np.float64]]
+    NDArray[np.float64]
         The evaluated rational Bézier surface with shape
         :math:`n_u \\times n_v \\times d`, where :math:`n_u`
         is the number of parameters in the

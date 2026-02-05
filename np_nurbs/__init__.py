@@ -1,10 +1,28 @@
-import time
+"""
+Main ``np-nurbs`` library
+"""
+# import time
 
+from numpy.typing import NDArray
 import numpy as np
 from scipy.special import comb
 
 
-def generate_cpu_coefficient_matrix(degree: int) -> np.ndarray[tuple[int, int], np.dtype[np.int64]]:
+def generate_cpu_coefficient_matrix(degree: int) -> NDArray[np.int64]: 
+    """
+    Generates a coefficient matrix used to apply the combination
+    function for a given Bernstein polynomial degree
+
+    Parameters
+    ----------
+    degree: int
+        Polynomial degree
+
+    Returns
+    -------
+    NDArray[np.int64]
+        Square array of size ``degree + 1``
+    """
     matrix_size = degree + 1
 
     # 1. Initialize the index arrays
@@ -18,7 +36,8 @@ def generate_cpu_coefficient_matrix(degree: int) -> np.ndarray[tuple[int, int], 
     mask = (diff >= 0)
     
     # 4. Use np.maximum to prevent negative exponents for (-1)**diff
-    # This avoids the ValueError while preserving correct parity for valid cells
+    # This avoids the ValueError while preserving correct parity for 
+    # valid cells
     safe_diff = np.maximum(diff, 0)
     
     # 5. Calculate components with NumPy's vectorized broadcasting
@@ -32,12 +51,12 @@ def generate_cpu_coefficient_matrix(degree: int) -> np.ndarray[tuple[int, int], 
     return np.where(mask, M, 0)
 
 
-start_time = time.perf_counter()
-coefficient_matrices: dict[int, np.ndarray[tuple[int, int], np.dtype[np.int64]]] = {
+# start_time = time.perf_counter()
+coefficient_matrices: dict[int, NDArray[np.int64]] = {
     i: generate_cpu_coefficient_matrix(i) for i in range(32)
 }
-end_time = time.perf_counter()
-elapsed_time = end_time - start_time
+# end_time = time.perf_counter()
+# elapsed_time = end_time - start_time
 # print(f"CPU coefficient matrix initialization time: {elapsed_time:.6f} seconds")
 
 
