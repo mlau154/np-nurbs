@@ -16,6 +16,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pydata-sphinx-theme",
+    "pyrefly",
     "pytest",
     "rust_nurbs",
     "sphinx",
@@ -25,5 +26,11 @@ dev = [
 [tool.setuptools]
 packages = [
     "np_nurbs"
+]
+
+[tool.pyrefly]
+project-includes = [
+    "**/*.py*",
+    "**/*.ipynb",
 ]
 

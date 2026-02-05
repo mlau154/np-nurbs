@@ -4,7 +4,7 @@ import numpy as np
 from scipy.special import comb
 
 
-def generate_cpu_coefficient_matrix(degree: int) -> np.ndarray[tuple[int, int], np.dtype[int]]:
+def generate_cpu_coefficient_matrix(degree: int) -> np.ndarray[tuple[int, int], np.dtype[np.int64]]:
     matrix_size = degree + 1
 
     # 1. Initialize the index arrays
@@ -33,12 +33,12 @@ def generate_cpu_coefficient_matrix(degree: int) -> np.ndarray[tuple[int, int], 
 
 
 start_time = time.perf_counter()
-coefficient_matrices: dict[int, np.ndarray[tuple[int, int], np.dtype[int]]] = {
+coefficient_matrices: dict[int, np.ndarray[tuple[int, int], np.dtype[np.int64]]] = {
     i: generate_cpu_coefficient_matrix(i) for i in range(32)
 }
 end_time = time.perf_counter()
 elapsed_time = end_time - start_time
-print(f"CPU coefficient matrix initialization time: {elapsed_time:.6f} seconds")
+# print(f"CPU coefficient matrix initialization time: {elapsed_time:.6f} seconds")
 
 
 # Delayed import of all functions so that each function can import the

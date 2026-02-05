@@ -10,17 +10,17 @@ import rust_nurbs
 
 
 @pytest.fixture
-def p_curve() -> np.ndarray[tuple[int, int], np.dtype[float]]:
+def p_curve() -> np.ndarray[tuple[int, int], np.dtype[np.float64]]:
     return np.random.uniform(low=-5.0, high=5.0, size=(10, 3))
 
 
 @pytest.fixture
-def p_surf() -> np.ndarray[tuple[int, int, int], np.dtype[float]]:
+def p_surf() -> np.ndarray[tuple[int, int, int], np.dtype[np.float64]]:
     return np.random.uniform(low=-5.0, high=5.0, size=(10, 10, 3))
 
 
 def test_bezier_curve_eval_grid(
-        p_curve: np.ndarray[tuple[int, int], np.dtype[float]]
+        p_curve: np.ndarray[tuple[int, int], np.dtype[np.float64]]
         ):
     np_curve = np_nurbs.bezier_curve_eval_grid(
             p_curve, 150
@@ -32,7 +32,7 @@ def test_bezier_curve_eval_grid(
 
 
 def test_bezier_curve_dcdt_grid(
-        p_curve: np.ndarray[tuple[int, int], np.dtype[float]]
+        p_curve: np.ndarray[tuple[int, int], np.dtype[np.float64]]
         ):
     np_curve = np_nurbs.bezier_curve_dcdt_grid(
             p_curve, 150
@@ -44,7 +44,7 @@ def test_bezier_curve_dcdt_grid(
 
 
 def test_bezier_curve_d2cdt2_grid(
-        p_curve: np.ndarray[tuple[int, int], np.dtype[float]]
+        p_curve: np.ndarray[tuple[int, int], np.dtype[np.float64]]
         ):
     np_curve = np_nurbs.bezier_curve_d2cdt2_grid(
             p_curve, 150
@@ -56,7 +56,7 @@ def test_bezier_curve_d2cdt2_grid(
 
 
 def test_bezier_surf_eval_grid(
-        p_surf: np.ndarray[tuple[int, int, int], np.dtype[float]]
+        p_surf: np.ndarray[tuple[int, int, int], np.dtype[np.float64]]
         ):
     np_surf = np_nurbs.bezier_surf_eval_grid(
             p_surf, 50, 50
